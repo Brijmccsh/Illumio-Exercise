@@ -68,7 +68,7 @@ The solution uses `BufferedReader` to read both the flow log and lookup table fi
 
 ### The flow log file size can be up to 10 MB
 The program processes the file line by line, ensuring memory efficiency. For larger files, consider adding progress reporting or chunked processing for better scalability.
-    ```java
+    ```bash
     BufferedReader reader = new BufferedReader(new FileReader("flow_logs.txt"));
     String line;
     while ((line = reader.readLine()) != null) {
