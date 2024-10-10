@@ -82,3 +82,66 @@ The structure allows for multiple mappings to a single tag. For example, both po
 
 ### Matches should be case insensitive
 The lookup key is generated using toLowerCase(), ensuring case-insensitive matching.
+
+## Testing and Analysis
+
+### Tests Performed
+
+1. Basic Functionality Test:
+   - Created a sample flow log file and a basic lookup table to verify core functionality.
+   - Checked if the program correctly parsed log entries and matched tags.
+   - Verified the accuracy of tag counts and port/protocol counts in output files.
+
+2. Diverse Log Entries Test:
+   - Generated a more comprehensive set of log entries covering various scenarios:
+     - Different protocols (TCP, UDP)
+     - Well-known ports (80, 443, 53) and high-numbered ephemeral ports
+     - Both ACCEPT and REJECT actions
+     - Various source and destination IP ranges (private and public)
+   - Ensured the program correctly handled and categorized this diverse set of logs.
+
+3. Edge Case Testing:
+   - Tested with an empty flow log file to verify proper handling of no input.
+   - Included malformed log entries to check error handling and robustness.
+
+4. Lookup Table Variations:
+   - Tested with an empty lookup table to ensure proper handling of untagged entries.
+   - Included case variations in the lookup table to verify case-insensitive matching.
+
+5. Output Verification:
+   - Verified the format and content of both tag count and port/protocol count output files.
+
+### Code Analysis
+
+1. Modularity:
+   - The program is structured with separate methods for loading the lookup table, processing logs, and writing output, enhancing readability and maintainability.
+
+2. Efficiency:
+   - Uses HashMaps for the lookup table and counters, providing O(1) average time complexity for lookups and updates.
+   - Processes flow logs line by line, keeping memory usage constant regardless of file size.
+
+3. Robustness:
+   - Implements basic error handling to manage IO exceptions, enhancing reliability.
+   - Successfully handles various input scenarios, including edge cases and diverse log entries.
+
+4. Limitations:
+   - Currently supports only the default AWS VPC Flow Log format (version 2).
+   - Uses hardcoded file names, which may limit flexibility in different environments.
+
+5. Scalability:
+   - The current implementation should handle files up to 10 MB efficiently.
+   - For larger datasets, consider implementing batch processing or using a database for the lookup table.
+
+6. Testing Approach:
+   - The integration testing approach verifies the overall functionality but doesn't test individual components in isolation.
+   - This method is effective for ensuring end-to-end correctness but may make it harder to pinpoint issues in specific components.
+
+### Areas for Improvement
+
+1. Unit tests for individual methods to complement the integration tests.
+2. More robust error handling and logging for better debugging and error tracking.
+3. Introduce configuration options or command-line arguments for file paths to increase flexibility.
+4. Supporting compressed log files to handle larger datasets more efficiently.
+5. Multi-threading for processing large log files to improve performance on multi-core systems.
+
+These tests and analyses ensure that the FlowLogAnalyzer functions correctly across various scenarios and provides insights into its performance characteristics. The identified areas for improvement offer a roadmap for future enhancements to the program.

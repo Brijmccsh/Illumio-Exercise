@@ -13,6 +13,13 @@ public class FlowLogAnalyzer {
     private Map<String, Integer> portProtocolCounts = new HashMap<>();
 
     public static void main(String[] args) {
+
+        // Map<String, Integer> tagCounts = new HashMap<>();
+        // Map<String, Integer> portProtocolCounts = new HashMap<>();
+        
+    
+        // Map<String, String> lookupTable = loadLookupTable(lookupTableFile);
+
         FlowLogAnalyzer analyzer = new FlowLogAnalyzer();
         analyzer.run();
     }
@@ -68,6 +75,15 @@ public class FlowLogAnalyzer {
             for (Map.Entry<String, Integer> entry : tagCounts.entrySet()) {
                 writer.println(entry.getKey() + "," + entry.getValue());
             }
+            // bw.write("\nPort/Protocol Combination Counts:\n");
+            // bw.write("Port,Protocol,Count\n");
+            // for (Map.Entry<String, Integer> entry : portProtocolCounts.entrySet()) {
+            //     String[] parts = entry.getKey().split(",");
+            //     String dstPort = parts[0];
+            //     String protocol = parts[1];
+            //     bw.write(dstPort + "," + protocol + "," + entry.getValue() + "\n");
+            // }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
