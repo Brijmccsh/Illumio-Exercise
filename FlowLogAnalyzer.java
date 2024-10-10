@@ -82,6 +82,16 @@ public class FlowLogAnalyzer {
         }
     }
 
+    // Helper method to convert protocol numbers to names
+    private String getProtocolName(String protocolNumber) {
+        switch (protocolNumber) {
+            case "6": return "tcp";
+            case "17": return "udp";
+            case "1": return "icmp";
+            default: return protocolNumber;
+        }
+    }
+
     private void writePortProtocolCounts() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(PORT_PROTOCOL_COUNT_OUTPUT))) {
             writer.println("Port,Protocol,Count");
