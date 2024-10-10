@@ -24,15 +24,6 @@ public class FlowLogAnalyzer {
         writePortProtocolCounts();
     }
 
-    private String getProtocolName(String protocolNumber) {
-        switch (protocolNumber) {
-            case "6": return "tcp";
-            case "17": return "udp";
-            case "1": return "icmp";
-            default: return protocolNumber;
-        }
-    }
-
     private void loadLookupTable() {
         try (BufferedReader reader = new BufferedReader(new FileReader(LOOKUP_TABLE_FILE))) {
             String line;
@@ -55,8 +46,8 @@ public class FlowLogAnalyzer {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" ");
                 if (parts.length >= 14) {
-                    String dstPort = parts[6];
-                    String protocol = parts[8];
+                    String dstPort = parts[5];  // Changed from parts[6]
+                    String protocol = getProtocolName(parts[7]);  // Changed from parts[8]
                     String key = dstPort.toLowerCase() + "," + protocol.toLowerCase();
                     
                     String tag = lookupTable.getOrDefault(key, "Untagged");
